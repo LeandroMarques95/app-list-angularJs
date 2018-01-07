@@ -1,12 +1,57 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html ng-app="monModule" lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cours AngularJs</title>
 </head>
-<body>
+
+<body ng-controller="indexController">
+    <header>
+        <h2 ng-bind="titre"></h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Note1</th>
+                    <th>Note2</th>
+                    <th>Note3</th>
+                    <th>Moyenne</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="eleve in eleves">
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.email }}</td>
+                    <td>{{ eleve.note1 }}</td>
+                    <td>{{ eleve.note2 }}</td>
+                    <td>{{ eleve.note3 }}</td>
+                    <td>{{ moyen(eleve) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </header>
     <script src="node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript">
+        angular.module("monModule", [])
+            .controller("indexController", function ($scope) {
+                $scope.titre = "System avec Angular JS";
+                $scope.eleves = [
+                    { nom: 'Paul', email: 'paul@hotmail.com', note1: 17, note2: 15, note3: 12 },
+                    { nom: 'Leo', email: 'leo@hotmail.com', note1: 13, note2: 14, note3: 18 },
+                    { nom: 'Jean', email: 'jean@hotmail.com', note1: 14, note2: 11, note3: 16 },
+                    { nom: 'Sophie', email: 'sophie@hotmail.com', note1: 20, note2: 19, note3: 12 },
+                    { nom: 'Julia', email: 'julia@hotmail.com', note1: 19, note2: 15, note3: 10 }
+                ];
+                $scope.moyen = function (Eleve) {
+                    var moyen = (Eleve.note1 + Eleve.note2 + Eleve.note3)/3;
+                    return moyen.toFixed(2);
+                }
+            })
+    </script>
 </body>
+
 </html>
